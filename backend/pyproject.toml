@@ -1,0 +1,17 @@
+[project]
+name = "cat-dance-backend"
+version = "0.1.0"
+authors = [
+    {name = "Dmitriy Aleksandrov", email = "adsis369@gmail.com"},
+]
+dependencies = [
+    "fastapi",
+    "psycopg2-binary",
+    "pydantic",
+    "pydantic-settings",
+    "pytest",
+    "python-dotenv",
+    "sqlalchemy",
+    "sqlmodel",
+    "uvicorn",
+]

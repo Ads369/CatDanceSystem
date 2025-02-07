@@ -1,0 +1,56 @@
+services:
+  db:
+    container_name: cat_db
+    image: postgres:17
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: dance_tournament
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/app:/app/app
+      - .env:/app/.env
+    # depends_on:
+    #   - db
+    environment:
+      UV_CACHE_DIR: /app/.uv_cache
+      DATABASE_URL: postgresql://user:password@db:5432/dance_tournament
+
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile.nginx
+  #     # dockerfile: Dockerfile.serve
+  #   depends_on:
+  #     - backend
+  #   ports:
+  #     - "3000:3000"
+  #     - "80:80"
+  #   volumes:
+  #     - ./frontend:/app
+  #   # environment:
+  #   # - NODE_ENV=development
+
+  # nginx:
+  #   build:
+  #     context: ./nginx
+  #     # dockerfile: Dockerfile
+  #   depends_on:
+  #     - backend
+  #     # - frontend
+  #   ports:
+  #     - "80:80"
+
+volumes:
+  postgres_data:
