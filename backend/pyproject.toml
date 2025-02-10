@@ -15,3 +15,7 @@ dependencies = [
     "sqlmodel",
     "uvicorn",
 ]
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
